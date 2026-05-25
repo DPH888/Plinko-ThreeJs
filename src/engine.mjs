@@ -5,17 +5,16 @@ import { detectionBodies, addToTotalScore, TotalScore } from "./detection_point.
 import { createDetectionPoint, physicalBody } from "./detection_point.mjs"
 
 let engine = {
-    init: initEngine,     // method to initialize the engine
+    init: initEngine,     // function that initializes the engine
+    // () is empty because this function takes no parameters (no input values)
+    // =>  creates a function  
+    // { } empty body of the function (placeholder)
     update: () => { },
     updateTime: 10,      // milliseconds between each `engine.update()` call, smaller = faster game logic updates, larger = slower updates
     scene: null,      //THREE.js scene  //we use null to say "empty for now" we will asign it later
     camera: null,    // THREE.js camera
-    renderer: null,      // draws the scene
-    world: null,       // Cannon.es physics world
-
-    randomInteger(min, max) { // returns a random integer between min and max 
-        return Math.random() * (max - min + 1) + min; //the number is not rounded
-    }
+    renderer: null,      // draws the scene with THREE.WebGLRenderer
+    world: null,       // Cannon.es physics simulation
 };
 
 // sets up Three.js scene, camera, renderer, and Cannon.es physics
@@ -66,7 +65,7 @@ let canTheGameReset=false;
 let canThePlayerReset=false;
 
 function colisionChecker(bodyA, bodyB, score = null) {
-    // engine.world.contacts contains all the collisions detected(between 2 bodies)
+    // engine.world.contacts contains all the collisions detected(between 2 bodies) in a given frame
     // looping through world.contacts is necessary because Cannon does not provide a direct "are these two bodies colliding" query
     for (let i = 0; i < engine.world.contacts.length; i++) {
         // it retrieves a single collision record from the physics world
@@ -83,9 +82,9 @@ function colisionChecker(bodyA, bodyB, score = null) {
 
         // Check if this contact involves exactly bodyA and bodyB
         // We check both orders because bi and bj can be assigned in either order by the engine
-        //COLLISION CHECKER WORKS BY CHECKING COLLISIONS OF BALL AND OBJECT WITH USERDATA(DETECTION POINTS😭)
-        if (a === bodyA && b.userData) {
-            if (b.userData.hit === false) {
+        //COLLISION CHECKER WORKS BY CHECKING COLLISIONS OF BALL AND PHYSICAL OBJECT WITH USERDATA(DETECTION POINTS)
+        if (a == bodyA && b.userData) {
+            if (b.userData.hit == false) {
                 b.userData.hit = true;
                 addToTotalScore(b.userData.score);
                 console.log("You got", b.userData.score);
@@ -93,8 +92,8 @@ function colisionChecker(bodyA, bodyB, score = null) {
                 canTheGameReset=true
             }
         }
-        else if (b === bodyA && a.userData) {
-            if (a.userData.hit === false) {
+        else if (b == bodyA && a.userData) {
+            if (a.userData.hit == false) {
                 a.userData.hit = true;
                 addToTotalScore(a.userData.score);
                 console.log("You got", a.userData.score);
@@ -118,10 +117,10 @@ window.addEventListener("keydown", event => {  //keydown is an already exsting e
 //1. The browser receives system(keyboard) event.    
 //2. The browser creates a JavaScript event object.
 //3. That event object contains properties like: "key,code, etc." if .key name is changed in the code to somehting else the browser wont know
-    if (event.code === "Enter") {
+    if (event.code == "Enter") {
         resetBall();
     }
-    if (event.code === "Space") {
+    if (event.code == "Space") {
         stopAnimation();
     }
 });

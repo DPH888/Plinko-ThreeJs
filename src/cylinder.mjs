@@ -32,8 +32,8 @@ function createCylinder(x, y, z, radius, height, segments) {
 
     engine.world.addBody(cylinderBody);     // add to physics simulation (gravity now affects it)
 
-    // every Three.js object has a small hidden storage space called .userData
-    // we put the physics body inside this lable so the engine can find it later and unite the physical and visual ball
+   // every Three.js object has a class called .userData
+    // we put the physics body inside this label so the engine can find it later and unite the physical and visual ball
     cylinderMesh.userData.body = cylinderBody;
 }
 

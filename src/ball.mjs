@@ -50,7 +50,7 @@ function respawnAnimation() {
     createBall(0, 50, 0);
     isBallCreated = true;
   }
-  console.log(animationRunning)
+ // console.log(animationRunning)
 
   if (animationRunning == true) {
     //this makes our animation running the bigger the number the faster it runs
@@ -79,7 +79,7 @@ function resetBall() {
   // Loop through all physics bodies manually
   for (let i = 0; i < engine.world.bodies.length; i++) {
     const body = engine.world.bodies[i];
-    if (body.userData && body.userData.hit !== undefined) { // checks if object has userData.hit
+    if (body.userData && body.userData.hit != undefined) { // checks if object has userData.hit
       body.userData.hit = false;
     }
   }

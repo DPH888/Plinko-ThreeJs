@@ -27,12 +27,13 @@ function createDetectionPoint(x, y, z, width, height, depth, Localscore) {
     });
 
     engine.world.addBody(physicalBody);
-    // every Three.js object has a small hidden storage space called .userData
+    // every Three.js object has a class called .userData
     // we put the physics body inside this label so the engine can find it later and unite the physical and visual ball
     groundMesh.userData.body = physicalBody;
 
     // Cannon-es bodies and Three.js meshes don't have built-in properties for custom game data.
     // .userData is the place to store anything extra (score, etc.)
+    // this allows us to attach game-specific information directly to the physics body.
     physicalBody.userData = {
         score: Localscore,
         hit: false

@@ -3,12 +3,12 @@
   <head>
   <title>Plinko</title>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'"> <!--this fixes weird error message with eval from node modules-->
   <style>
     body { margin: 0; overflow: hidden; background: #111; }
   </style>
 </head>
   <body>
-    <script src="./index_bundle.js"></script>
+    <script src="./index_bundle.js"></script> <!--index_bundle.js is created on the go with the starting of the server-->
   </body>
 </html>
